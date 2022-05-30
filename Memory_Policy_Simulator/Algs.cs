@@ -16,10 +16,10 @@ namespace Memory_Policy_Simulator {
         public int migration;
 
         public Algs(int get_frame_size) {
-            this.cursor = 0;
-            this.p_frame_size = get_frame_size;
-            this.frame_window = new Queue<Page>();
-            this.pageHistory = new List<Page>();
+            cursor = 0;
+            p_frame_size = get_frame_size;
+            frame_window = new Queue<Page>();
+            pageHistory = new List<Page>();
         }
 
         public abstract Page.STATUS Operate(char data);

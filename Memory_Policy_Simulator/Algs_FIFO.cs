@@ -13,15 +13,15 @@ namespace Memory_Policy_Simulator {
         public override Page.STATUS Operate(char data) {
             Page newPage;
 
-            if (this.frame_window.Any<Page>(x => x.data == data)) {
+            if (frame_window.Any<Page>(x => x.data == data)) {
                 newPage.pid = Page.CREATE_ID++;
                 newPage.data = data;
                 newPage.status = Page.STATUS.HIT;
-                this.hit++;
+                hit++;
                 int i;
 
-                for (i = 0; i < this.frame_window.Count; i++) {
-                    if (this.frame_window.ElementAt(i).data == data) break;
+                for (i = 0; i < frame_window.Count; i++) {
+                    if (frame_window.ElementAt(i).data == data) break;
                 }
                 newPage.loc = i + 1;
             } else {
@@ -30,14 +30,14 @@ namespace Memory_Policy_Simulator {
 
                 if (frame_window.Count >= p_frame_size) {
                     newPage.status = Page.STATUS.MIGRATION;
-                    this.frame_window.Dequeue();
+                    frame_window.Dequeue();
                     cursor = p_frame_size;
-                    this.migration++;
-                    this.fault++;
+                    migration++;
+                    fault++;
                 } else {
                     newPage.status = Page.STATUS.PAGEFAULT;
                     cursor++;
-                    this.fault++;
+                    fault++;
                 }
 
                 newPage.loc = cursor;
