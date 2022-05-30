@@ -4,14 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Memory_Policy_Simulator
-{
-    public struct Page
-    {
+namespace Memory_Policy_Simulator {
+    public struct Page {
         public static int CREATE_ID = 0;
 
-        public enum STATUS
-        {
+        public enum STATUS {
             HIT,
             PAGEFAULT,
             MIGRATION

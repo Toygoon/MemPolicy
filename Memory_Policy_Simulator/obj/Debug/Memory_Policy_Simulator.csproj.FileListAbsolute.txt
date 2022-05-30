@@ -7,3 +7,14 @@ C:\Users\oswardfish\OneDrive\Workspace\Memory_Policy_Simulator\Memory_Policy_Sim
 C:\Users\oswardfish\OneDrive\Workspace\Memory_Policy_Simulator\Memory_Policy_Simulator\obj\Debug\Memory_Policy_Simulator.csproj.GenerateResource.Cache
 C:\Users\oswardfish\OneDrive\Workspace\Memory_Policy_Simulator\Memory_Policy_Simulator\obj\Debug\Memory_Policy_Simulator.exe
 C:\Users\oswardfish\OneDrive\Workspace\Memory_Policy_Simulator\Memory_Policy_Simulator\obj\Debug\Memory_Policy_Simulator.pdb
+C:\Users\Toygoon\workspace\MemPolicy\Memory_Policy_Simulator\bin\Debug\Memory_Policy_Simulator.exe.config
+C:\Users\Toygoon\workspace\MemPolicy\Memory_Policy_Simulator\bin\Debug\Memory_Policy_Simulator.exe
+C:\Users\Toygoon\workspace\MemPolicy\Memory_Policy_Simulator\bin\Debug\Memory_Policy_Simulator.pdb
+C:\Users\Toygoon\workspace\MemPolicy\Memory_Policy_Simulator\obj\Debug\Memory_Policy_Simulator.csproj.AssemblyReference.cache
+C:\Users\Toygoon\workspace\MemPolicy\Memory_Policy_Simulator\obj\Debug\Memory_Policy_Simulator.csproj.SuggestedBindingRedirects.cache
+C:\Users\Toygoon\workspace\MemPolicy\Memory_Policy_Simulator\obj\Debug\Memory_Policy_Simulator.Form1.resources
+C:\Users\Toygoon\workspace\MemPolicy\Memory_Policy_Simulator\obj\Debug\Memory_Policy_Simulator.Properties.Resources.resources
+C:\Users\Toygoon\workspace\MemPolicy\Memory_Policy_Simulator\obj\Debug\Memory_Policy_Simulator.csproj.GenerateResource.cache
+C:\Users\Toygoon\workspace\MemPolicy\Memory_Policy_Simulator\obj\Debug\Memory_Policy_Simulator.csproj.CoreCompileInputs.cache
+C:\Users\Toygoon\workspace\MemPolicy\Memory_Policy_Simulator\obj\Debug\Memory_Policy_Simulator.exe
+C:\Users\Toygoon\workspace\MemPolicy\Memory_Policy_Simulator\obj\Debug\Memory_Policy_Simulator.pdb

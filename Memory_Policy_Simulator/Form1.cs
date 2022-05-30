@@ -28,20 +28,20 @@ namespace Memory_Policy_Simulator
             this.pImage.Controls.Add(this.pbPlaceHolder);
         }
 
-        private void DrawBase(Core core, int windowSize, int dataLength)
+        private void DrawBase(Algs_FIFO core, int windowSize, int dataLength)
         {
             /* parse window */
             var psudoQueue = new Queue<char>();
 
             g.Clear(Color.Black);
 
-            for ( int i = 0; i < dataLength; i++ ) // length
+            for (int i = 0; i < dataLength; i++) // length
             {
                 int psudoCursor = core.pageHistory[i].loc;
                 char data = core.pageHistory[i].data;
                 Page.STATUS status = core.pageHistory[i].status;
 
-                switch ( status )
+                switch (status)
                 {
                     case Page.STATUS.PAGEFAULT:
                         psudoQueue.Enqueue(data);
@@ -52,7 +52,7 @@ namespace Memory_Policy_Simulator
                         break;
                 }
 
-                for ( int j = 0; j <= windowSize; j++) // height - STEP
+                for (int j = 0; j <= windowSize; j++) // height - STEP
                 {
                     if (j == 0)
                     {
@@ -67,7 +67,7 @@ namespace Memory_Policy_Simulator
                 DrawGridHighlight(i, psudoCursor, status);
                 int depth = 1;
 
-                foreach ( char t in psudoQueue )
+                foreach (char t in psudoQueue)
                 {
                     DrawGridText(i, depth++, t);
                 }
@@ -127,9 +127,9 @@ namespace Memory_Policy_Simulator
             int gridBaseY = y * gridSize;
 
             g.DrawString(
-                value.ToString(), 
-                new Font(FontFamily.GenericMonospace, 8), 
-                new SolidBrush(Color.White), 
+                value.ToString(),
+                new Font(FontFamily.GenericMonospace, 8),
+                new SolidBrush(Color.White),
                 new PointF(
                     gridBaseX + (x * gridSpace) + gridSize / 3,
                     gridBaseY + gridSize / 4));
@@ -145,12 +145,12 @@ namespace Memory_Policy_Simulator
                 int windowSize = int.Parse(this.tbWindowSize.Text);
 
                 /* initalize */
-                var window = new Core(windowSize);
+                var window = new Algs_FIFO(windowSize);
 
-                foreach ( char element in data )
+                foreach (char element in data)
                 {
                     var status = window.Operate(element);
-                    this.tbConsole.Text += "DATA " + element + " is " + 
+                    this.tbConsole.Text += "DATA " + element + " is " +
                         ((status == Page.STATUS.PAGEFAULT) ? "Page Fault" : status == Page.STATUS.MIGRATION ? "Migrated" : "Hit")
                         + "\r\n";
                 }
@@ -164,7 +164,7 @@ namespace Memory_Policy_Simulator
                 resultChartContent.ChartType = SeriesChartType.Pie;
                 resultChartContent.IsVisibleInLegend = true;
                 resultChartContent.Points.AddXY("Hit", window.hit);
-                resultChartContent.Points.AddXY("Page Fault", window.fault-window.migration);
+                resultChartContent.Points.AddXY("Page Fault", window.fault - window.migration);
                 resultChartContent.Points.AddXY("Migrated", window.migration);
                 resultChartContent.Points[0].IsValueShownAsLabel = true;
                 resultChartContent.Points[1].IsValueShownAsLabel = true;
@@ -194,10 +194,10 @@ namespace Memory_Policy_Simulator
 
         private void tbWindowSize_KeyPress(object sender, KeyPressEventArgs e)
         {
-                if (!(Char.IsDigit(e.KeyChar)) && e.KeyChar != 8)
-                {
-                    e.Handled = true;
-                }
+            if (!(Char.IsDigit(e.KeyChar)) && e.KeyChar != 8)
+            {
+                e.Handled = true;
+            }
         }
 
         private void btnRand_Click(object sender, EventArgs e)
@@ -208,7 +208,7 @@ namespace Memory_Policy_Simulator
             StringBuilder sb = new StringBuilder();
 
 
-            for ( int i = 0; i < count; i++ )
+            for (int i = 0; i < count; i++)
             {
                 sb.Append((char)rd.Next(65, 90));
             }
