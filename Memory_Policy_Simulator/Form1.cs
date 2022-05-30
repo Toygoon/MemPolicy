@@ -28,7 +28,7 @@ namespace Memory_Policy_Simulator
             this.pImage.Controls.Add(this.pbPlaceHolder);
         }
 
-        private void DrawBase(Algs_FIFO core, int windowSize, int dataLength)
+        private void DrawBase(Algs core, int windowSize, int dataLength)
         {
             /* parse window */
             var psudoQueue = new Queue<char>();

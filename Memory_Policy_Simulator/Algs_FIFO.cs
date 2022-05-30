@@ -6,28 +6,14 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Memory_Policy_Simulator {
-    class Algs_FIFO {
-        private int cursor;
-        public int p_frame_size;
-        public Queue<Page> frame_window;
-        public List<Page> pageHistory;
-
-        public int hit;
-        public int fault;
-        public int migration;
-
-        public Algs_FIFO(int get_frame_size) {
-            this.cursor = 0;
-            this.p_frame_size = get_frame_size;
-            this.frame_window = new Queue<Page>();
-            this.pageHistory = new List<Page>();
+    class Algs_FIFO : Algs { 
+        public Algs_FIFO(int get_frame_size) : base(get_frame_size) {
         }
 
-        public Page.STATUS Operate(char data) {
+        public override Page.STATUS Operate(char data) {
             Page newPage;
 
             if (this.frame_window.Any<Page>(x => x.data == data)) {
-                Debug.WriteLine("Existing in ");
                 newPage.pid = Page.CREATE_ID++;
                 newPage.data = data;
                 newPage.status = Page.STATUS.HIT;
@@ -62,7 +48,7 @@ namespace Memory_Policy_Simulator {
             return newPage.status;
         }
 
-        public List<Page> GetPageInfo(Page.STATUS status) {
+        public override List<Page> GetPageInfo(Page.STATUS status) {
             List<Page> pages = new List<Page>();
 
             foreach (Page page in pageHistory) {
@@ -73,7 +59,6 @@ namespace Memory_Policy_Simulator {
 
             return pages;
         }
-
     }
 
 
