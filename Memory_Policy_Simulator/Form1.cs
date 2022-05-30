@@ -220,5 +220,9 @@ namespace Memory_Policy_Simulator
         {
             bResultImage.Save("./result.jpg");
         }
+
+        private void tbQueryString_TextChanged(object sender, EventArgs e) {
+
+        }
     }
 }

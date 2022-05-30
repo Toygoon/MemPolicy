@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,6 +27,7 @@ namespace Memory_Policy_Simulator {
             Page newPage;
 
             if (this.frame_window.Any<Page>(x => x.data == data)) {
+                Debug.WriteLine("Existing in ");
                 newPage.pid = Page.CREATE_ID++;
                 newPage.data = data;
                 newPage.status = Page.STATUS.HIT;
@@ -36,7 +38,6 @@ namespace Memory_Policy_Simulator {
                     if (this.frame_window.ElementAt(i).data == data) break;
                 }
                 newPage.loc = i + 1;
-
             } else {
                 newPage.pid = Page.CREATE_ID++;
                 newPage.data = data;
