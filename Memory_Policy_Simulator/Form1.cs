@@ -75,17 +75,27 @@ namespace Memory_Policy_Simulator {
         }
 
         private void btnOperate_Click(object sender, EventArgs e) {
-            this.tbConsole.Clear();
-
             if (this.tbQueryString.Text != "" || this.tbWindowSize.Text != "") {
                 string data = this.tbQueryString.Text;
                 int windowSize = int.Parse(this.tbWindowSize.Text);
 
                 /* initalize */
-                Debug.WriteLine(comboBox1.SelectedItem.ToString());
+                Algs window = null;
 
-                var window = new Algs_Optimal(windowSize, data);
+                switch (comboBox1.SelectedItem.ToString()) {
+                    case "FIFO":
+                        window = new Algs_FIFO(windowSize);
+                        break;
 
+                    case "Optimal":
+                        window = new Algs_Optimal(windowSize, data);
+                        break;
+
+                    default:
+                        return;
+                }
+
+                this.tbConsole.Clear();
                 g.Clear(Color.Black);
 
                 int i = 0;
