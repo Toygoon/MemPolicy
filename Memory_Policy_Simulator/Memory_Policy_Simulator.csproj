@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="Algs.cs" />
     <Compile Include="Algs_FIFO.cs" />
+    <Compile Include="Algs_LRU.cs" />
     <Compile Include="Algs_Optimal.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>

@@ -91,6 +91,10 @@ namespace Memory_Policy_Simulator {
                         window = new Algs_Optimal(windowSize, data);
                         break;
 
+                    case "LRU":
+                        window = new Algs_LRU(windowSize, data);
+                        break;
+
                     default:
                         return;
                 }
