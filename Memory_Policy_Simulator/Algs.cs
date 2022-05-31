@@ -6,23 +6,19 @@ using System.Threading.Tasks;
 
 namespace Memory_Policy_Simulator {
     abstract class Algs {
-        protected int cursor;
-        public int p_frame_size;
-        public Queue<Page> frame_window;
+        public int frameSize;
         public List<Page> pageHistory;
+        public List<Page> frameWindow;
 
         public int hit;
         public int fault;
-        public int migration;
 
         public Algs(int get_frame_size) {
-            cursor = 0;
-            p_frame_size = get_frame_size;
-            frame_window = new Queue<Page>();
+            frameSize = get_frame_size;
             pageHistory = new List<Page>();
+            frameWindow = new List<Page>();
         }
 
-        public abstract Page.STATUS Operate(char data);
-        public abstract List<Page> GetPageInfo(Page.STATUS status);
+        public abstract Page Operate(char data);
     }
 }

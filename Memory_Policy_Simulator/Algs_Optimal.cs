@@ -6,8 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Memory_Policy_Simulator {
-    class Algs_FIFO : Algs {
-        public Algs_FIFO(int get_frame_size) : base(get_frame_size) {
+    class Algs_Optimal : Algs {
+        public Algs_Optimal(int get_frame_size) : base(get_frame_size) {
         }
 
         public override Page Operate(char data) {
@@ -41,6 +41,5 @@ namespace Memory_Policy_Simulator {
 
             return newPage;
         }
-
     }
 }

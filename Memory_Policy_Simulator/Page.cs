@@ -6,17 +6,14 @@ using System.Threading.Tasks;
 
 namespace Memory_Policy_Simulator {
     public struct Page {
-        public static int CREATE_ID = 0;
-
         public enum STATUS {
             HIT,
             PAGEFAULT,
             MIGRATION
         }
-
+        public static int CREATE_ID = 0;
         public int pid;
-        public int loc;
-        public char data;
+        public char data, before;
         public STATUS status;
     }
 
