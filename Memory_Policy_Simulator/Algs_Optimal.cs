@@ -41,7 +41,7 @@ namespace Memory_Policy_Simulator {
 
             // Create a new page
             Page newPage = new Page {
-                pid = Page.CREATE_ID++,
+                pid = Page.createdAt++,
                 data = data
             };
 

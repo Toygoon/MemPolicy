@@ -1,4 +1,6 @@
-﻿namespace Memory_Policy_Simulator {
+﻿using System.Windows.Forms;
+
+namespace Memory_Policy_Simulator {
     partial class Form1 {
         /// <summary>
         /// 필수 디자이너 변수입니다.
@@ -103,6 +105,7 @@
             this.tbConsole.ReadOnly = true;
             this.tbConsole.Size = new System.Drawing.Size(213, 102);
             this.tbConsole.TabIndex = 5;
+            this.tbConsole.ScrollBars = ScrollBars.Vertical;
             // 
             // chart1
             // 

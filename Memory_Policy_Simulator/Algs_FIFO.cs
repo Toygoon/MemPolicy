@@ -13,7 +13,7 @@ namespace Memory_Policy_Simulator {
         public override Page Operate(char data) {
             // Create a new page
             Page newPage = new Page {
-                pid = Page.CREATE_ID++,
+                pid = Page.createdAt++,
                 data = data
             };
 

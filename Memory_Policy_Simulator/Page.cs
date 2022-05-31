@@ -11,7 +11,7 @@ namespace Memory_Policy_Simulator {
             PAGEFAULT,
             MIGRATION
         }
-        public static int CREATE_ID = 0;
+        public static int createdAt = 0;
         public int pid;
         public char data, before;
         public STATUS status;
