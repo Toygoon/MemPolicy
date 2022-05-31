@@ -95,6 +95,10 @@ namespace Memory_Policy_Simulator {
                         window = new Algs_LRU(windowSize, data);
                         break;
 
+                    case "RefBit":
+                        window = new Algs_RefBit(windowSize, data);
+                        break;
+
                     default:
                         return;
                 }
