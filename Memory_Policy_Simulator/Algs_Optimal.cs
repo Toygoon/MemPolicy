@@ -7,7 +7,12 @@ using System.Threading.Tasks;
 
 namespace Memory_Policy_Simulator {
     class Algs_Optimal : Algs {
-        public Algs_Optimal(int get_frame_size) : base(get_frame_size) {
+        int currentStrIdx;
+        string str;
+
+        public Algs_Optimal(int get_frame_size, string str) : base(get_frame_size) {
+            this.currentStrIdx = 0;
+            this.str = str;
         }
 
         public override Page Operate(char data) {
@@ -22,11 +27,16 @@ namespace Memory_Policy_Simulator {
                 newPage.status = Page.STATUS.HIT;
                 // Increase the number of hits
                 hit++;
-
             } else {
                 if (frameWindow.Count >= frameSize) {
                     newPage.status = Page.STATUS.MIGRATION;
-                    // Remove the first inserted data
+                    string tmp = str.Substring(currentStrIdx);
+                    Debug.WriteLine(tmp);
+                    Dictionary<char, int> freq = tmp.Select(c => char.ToUpperInvariant(c)).GroupBy(c => c).ToDictionary(g => g.Key, g => g.Count());
+                    foreach (char c in freq.Keys) {
+                        Debug.Write(c + "(" + freq[c] + ") ");
+                    }
+                    Debug.WriteLine("");
                     frameWindow.RemoveAt(0);
                 } else {
                     // First fault
@@ -39,6 +49,7 @@ namespace Memory_Policy_Simulator {
             }
             pageHistory.Add(newPage);
 
+            currentStrIdx++;
             return newPage;
         }
     }

@@ -82,7 +82,7 @@ namespace Memory_Policy_Simulator {
                 int windowSize = int.Parse(this.tbWindowSize.Text);
 
                 /* initalize */
-                var window = new Algs_FIFO(windowSize);
+                var window = new Algs_Optimal(windowSize, data);
 
                 g.Clear(Color.Black);
 
