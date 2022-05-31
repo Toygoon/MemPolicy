@@ -90,7 +90,7 @@ namespace Memory_Policy_Simulator {
                 foreach (char element in data) {
                     Page p = window.Operate(element);
                     this.tbConsole.Text += "DATA " + element + " is " +
-                        ((p.status == Page.STATUS.HIT) ? "Hit" : "Page fault")
+                        (p.status == Page.STATUS.HIT ? "Hit" : p.status == Page.STATUS.PAGEFAULT ? "Page fault (New)" : "Page fault (" + p.before + "→" + p.data + ")")
                         + "\r\n";
                     DrawBase(window, p, windowSize, i++);
                 }

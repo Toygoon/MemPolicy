@@ -26,6 +26,7 @@ namespace Memory_Policy_Simulator {
             } else {
                 if (frameWindow.Count >= frameSize) {
                     newPage.status = Page.STATUS.MIGRATION;
+                    newPage.before = frameWindow[0].data;
                     // Remove the first inserted data
                     frameWindow.RemoveAt(0);
                 } else {
