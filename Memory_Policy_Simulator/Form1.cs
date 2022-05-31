@@ -82,6 +82,8 @@ namespace Memory_Policy_Simulator {
                 int windowSize = int.Parse(this.tbWindowSize.Text);
 
                 /* initalize */
+                Debug.WriteLine(comboBox1.SelectedItem.ToString());
+
                 var window = new Algs_Optimal(windowSize, data);
 
                 g.Clear(Color.Black);

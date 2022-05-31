@@ -15,7 +15,30 @@ namespace Memory_Policy_Simulator {
             this.str = str;
         }
 
+        public int getVictimIdx() {
+            string tmp = str.Substring(currentStrIdx);
+            List<char> windowChars = new List<char>(), strChars = new List<char>();
+
+            foreach (var v in frameWindow)
+                windowChars.Add(v.data);
+
+            foreach (char c in tmp)
+                strChars.Add(c);
+
+            foreach(char c in strChars) {
+                if (windowChars.Count == 1)
+                    return frameWindow.IndexOf(frameWindow.Find(x => x.data == windowChars[0]));
+
+                if (windowChars.Contains(c))
+                    windowChars.Remove(c);
+            }
+
+            return 0;
+        }
+
         public override Page Operate(char data) {
+            currentStrIdx++;
+
             // Create a new page
             Page newPage = new Page {
                 pid = Page.CREATE_ID++,
@@ -30,14 +53,9 @@ namespace Memory_Policy_Simulator {
             } else {
                 if (frameWindow.Count >= frameSize) {
                     newPage.status = Page.STATUS.MIGRATION;
-                    string tmp = str.Substring(currentStrIdx);
-                    Debug.WriteLine(tmp);
-                    Dictionary<char, int> freq = tmp.Select(c => char.ToUpperInvariant(c)).GroupBy(c => c).ToDictionary(g => g.Key, g => g.Count());
-                    foreach (char c in freq.Keys) {
-                        Debug.Write(c + "(" + freq[c] + ") ");
-                    }
-                    Debug.WriteLine("");
-                    frameWindow.RemoveAt(0);
+                    int victimIdx = getVictimIdx();
+                    newPage.before = frameWindow[victimIdx].data;
+                    frameWindow.RemoveAt(victimIdx);
                 } else {
                     // First fault
                     newPage.status = Page.STATUS.PAGEFAULT;
@@ -49,7 +67,6 @@ namespace Memory_Policy_Simulator {
             }
             pageHistory.Add(newPage);
 
-            currentStrIdx++;
             return newPage;
         }
     }
