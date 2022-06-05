@@ -29,7 +29,6 @@ namespace Memory_Policy_Simulator {
                 if (frameWindow.Count >= frameSize) {
                     newPage.status = Page.STATUS.MIGRATION;
                     
-
                     while (true) {
                         if (!refBit.Any(x => x.Value == false))
                             break;
