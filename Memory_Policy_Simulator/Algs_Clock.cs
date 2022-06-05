@@ -11,36 +11,19 @@ namespace Memory_Policy_Simulator {
         }
 
         public int getVictimIdx() {
-            int oldest = 0;
+            List<Page> tmp = frameWindow.ToList();
+            tmp.Sort(delegate (Page x, Page y) {
+                return x.pid.CompareTo(y.pid);
+            });
 
-            if (!refBit.Any(x => x.Value == false)) {
-                for (int i = 1; i<frameWindow.Count; i++)
-                    if (frameWindow[i].pid < frameWindow[oldest].pid)
-                        oldest = i;
-
-                return oldest;
+            for (int i = 0; i<tmp.Count; i++) {
+                if (refBit[tmp[i].data])
+                    refBit[tmp[i].data] = false;
+                else
+                    return frameWindow.IndexOf(tmp[i]);
             }
 
-            List<Page> tmp = frameWindow.ToList();
-            foreach (char c in refBit.Keys)
-                if (refBit[c] == true) {
-                    Debug.WriteLine(c + "is true");
-                    tmp.Remove(tmp.Find(x => x.data == c));
-                }
-
-            foreach (Page p in frameWindow)
-                if (!tmp.Contains(p)) {
-                    Debug.WriteLine(p.data + "will be changed");
-                    refBit[p.data] = false;
-                }
-
-            for (int i = 0; i<tmp.Count; i++)
-                if (tmp[i].pid < tmp[oldest].pid) {
-                    Debug.WriteLine("victim is " + tmp[i].data);
-                    oldest = i;
-                }
-
-            return frameWindow.IndexOf(frameWindow.Find(x => x.data == tmp[oldest].data));
+            return -1;
         }
 
         public override Page Operate(char data) {
@@ -61,20 +44,26 @@ namespace Memory_Policy_Simulator {
                     newPage.status = Page.STATUS.MIGRATION;
                     int victimIdx = getVictimIdx();
                     newPage.before = frameWindow[victimIdx].data;
-                    frameWindow.RemoveAt(victimIdx);
                     refBit.Remove(newPage.before);
+                    frameWindow.RemoveAt(victimIdx);
                 } else {
                     // First fault
                     newPage.status = Page.STATUS.PAGEFAULT;
-                    refBit.Add(newPage.data, false);
                 }
 
+                refBit.Add(newPage.data, false);
                 fault++;
                 // New data will be added into the last of the index
                 frameWindow.Add(newPage);
             }
             pageHistory.Add(newPage);
 
+            foreach(var v in refBit.Keys) {
+                Debug.WriteLine(v + " : " + refBit[v]);
+          
+            }
+
+            Debug.WriteLine("");
             return newPage;
         }
     }

@@ -40,8 +40,9 @@ namespace Memory_Policy_Simulator {
                 } else {
                     // First fault
                     newPage.status = Page.STATUS.PAGEFAULT;
-                    refBit.Add(newPage.data, false);
                 }
+
+                refBit.Add(newPage.data, false);
 
                 fault++;
                 // New data will be added into the last of the index
