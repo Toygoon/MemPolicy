@@ -103,6 +103,14 @@ namespace Memory_Policy_Simulator {
                         window = new Algs_Clock(windowSize);
                         break;
 
+                    case "LFU":
+                        window = new Algs_LFU(windowSize, true);
+                        break;
+
+                    case "MFU":
+                        window = new Algs_LFU(windowSize, false);
+                        break;
+
                     default:
                         return;
                 }

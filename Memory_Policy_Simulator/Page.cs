@@ -11,10 +11,15 @@ namespace Memory_Policy_Simulator {
             PAGEFAULT,
             MIGRATION
         }
-        public static int createdAt = 0;
+        public static int createdAt;
         public int pid;
         public char data, before;
+        public int refCount;
         public STATUS status;
+
+        public Page copy() {
+            return (Page) MemberwiseClone();
+        }
     }
 
 }

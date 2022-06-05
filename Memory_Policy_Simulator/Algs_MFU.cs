@@ -1,27 +1,32 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Memory_Policy_Simulator {
-    class Algs_Clock : Algs {
-        Dictionary<char, bool> refBit;
-        int victimCursor;
-
-        public Algs_Clock(int getFrameSize) : base(getFrameSize) {
-            this.refBit = new Dictionary<char, bool>();
-            this.victimCursor = 0;
+    class Algs_MFU : Algs {
+        public Algs_MFU(int getFrameSize) : base(getFrameSize) {
         }
 
         public int getVictimIdx() {
-            if (!refBit.Any(x => x.Value == false))
-                return 0;
+            List<Page> tmp = frameWindow.ToList();
+            tmp.Sort(delegate (Page x, Page y) {
+                if (x.refCount > y.refCount)
+                    return 1;
+                else if (x.refCount < y.refCount)
+                    return -1;
 
-            while (true) {
-                if (refBit[frameWindow[victimCursor % 3].data] == false) {
-                    return victimCursor % 3;
-                }
-                victimCursor++;
+                return x.pid.CompareTo(y.pid);
+            });
+
+            foreach (Page p in tmp) {
+                Debug.WriteLine(p.data + " : " + p.refCount);
             }
+            Debug.WriteLine("");
+
+            return frameWindow.IndexOf(tmp[0]);
         }
 
         public override Page Operate(char data) {
@@ -32,37 +37,32 @@ namespace Memory_Policy_Simulator {
             };
 
             if (frameWindow.Any(x => x.data == data)) {
+                int idx = frameWindow.IndexOf(frameWindow.Find(x => x.data == data));
+                newPage = frameWindow[idx].copy();
+                newPage.refCount++;
+                frameWindow[idx] = newPage;
+
                 // The case; Page Hit
                 newPage.status = Page.STATUS.HIT;
                 // Increase the number of hits
                 hit++;
-                refBit[newPage.data] = true;
             } else {
                 if (frameWindow.Count >= frameSize) {
                     newPage.status = Page.STATUS.MIGRATION;
                     int victimIdx = getVictimIdx();
                     newPage.before = frameWindow[victimIdx].data;
-                    refBit.Remove(newPage.before);
                     frameWindow.RemoveAt(victimIdx);
                 } else {
                     // First fault
-                    victimCursor++;
                     newPage.status = Page.STATUS.PAGEFAULT;
                 }
 
-                refBit.Add(newPage.data, false);
                 fault++;
                 // New data will be added into the last of the index
-                frameWindow.Insert(0, newPage);
+                frameWindow.Add(newPage);
             }
             pageHistory.Add(newPage);
 
-            foreach (var v in refBit.Keys) {
-                Debug.WriteLine(v + " : " + refBit[v]);
-
-            }
-
-            Debug.WriteLine("");
             return newPage;
         }
     }
