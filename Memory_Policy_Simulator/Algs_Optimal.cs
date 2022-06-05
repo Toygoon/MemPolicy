@@ -10,7 +10,7 @@ namespace Memory_Policy_Simulator {
         int currentStrIdx;
         string str;
 
-        public Algs_Optimal(int get_frame_size, string str) : base(get_frame_size) {
+        public Algs_Optimal(int getFrameSize, string str) : base(getFrameSize) {
             this.currentStrIdx = 0;
             this.str = str;
         }

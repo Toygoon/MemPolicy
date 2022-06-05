@@ -10,7 +10,7 @@ namespace Memory_Policy_Simulator {
         int currentStrIdx;
         string str;
 
-        public Algs_LRU(int get_frame_size, string str) : base(get_frame_size) {
+        public Algs_LRU(int getFrameSize, string str) : base(getFrameSize) {
             this.currentStrIdx = 0;
             this.str = str;
         }

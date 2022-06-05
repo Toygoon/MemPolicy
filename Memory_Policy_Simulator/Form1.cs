@@ -96,7 +96,11 @@ namespace Memory_Policy_Simulator {
                         break;
 
                     case "RefBit":
-                        window = new Algs_RefBit(windowSize, data);
+                        window = new Algs_RefBit(windowSize);
+                        break;
+
+                    case "Clock":
+                        window = new Algs_Clock(windowSize);
                         break;
 
                     default:

@@ -13,8 +13,8 @@ namespace Memory_Policy_Simulator {
         public int hit;
         public int fault;
 
-        public Algs(int get_frame_size) {
-            frameSize = get_frame_size;
+        public Algs(int getFrameSize) {
+            frameSize = getFrameSize;
             pageHistory = new List<Page>();
             frameWindow = new List<Page>();
         }
