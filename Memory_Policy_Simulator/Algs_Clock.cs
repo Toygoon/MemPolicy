@@ -5,23 +5,9 @@ using System.Linq;
 namespace Memory_Policy_Simulator {
     class Algs_Clock : Algs {
         Dictionary<char, bool> refBit;
-        int victimCursor;
 
         public Algs_Clock(int getFrameSize) : base(getFrameSize) {
             this.refBit = new Dictionary<char, bool>();
-            this.victimCursor = 0;
-        }
-
-        public int getVictimIdx() {
-            if (!refBit.Any(x => x.Value == false))
-                return 0;
-
-            while (true) {
-                if (refBit[frameWindow[victimCursor % 3].data] == false) {
-                    return victimCursor % 3;
-                }
-                victimCursor++;
-            }
         }
 
         public override Page Operate(char data) {
@@ -38,22 +24,40 @@ namespace Memory_Policy_Simulator {
                 hit++;
                 refBit[newPage.data] = true;
             } else {
+                refBit[newPage.data] = false;
+
                 if (frameWindow.Count >= frameSize) {
                     newPage.status = Page.STATUS.MIGRATION;
-                    int victimIdx = getVictimIdx();
-                    newPage.before = frameWindow[victimIdx].data;
+                    
+
+                    while (true) {
+                        if (!refBit.Any(x => x.Value == false))
+                            break;
+
+                        Debug.WriteLine("data : " + frameWindow[0].data);
+
+                        if (refBit[frameWindow[0].data] == false)
+                            break;
+
+                        if (refBit[frameWindow[0].data] == true) {
+                            Page p = frameWindow[0];
+                            frameWindow.RemoveAt(0);
+                            frameWindow.Add(p);
+                            refBit[p.data] = false;
+                        }
+                    }
+
+                    newPage.before = frameWindow[0].data;
                     refBit.Remove(newPage.before);
-                    frameWindow.RemoveAt(victimIdx);
+                    frameWindow.RemoveAt(0);
                 } else {
                     // First fault
-                    victimCursor++;
                     newPage.status = Page.STATUS.PAGEFAULT;
                 }
 
-                refBit.Add(newPage.data, false);
                 fault++;
                 // New data will be added into the last of the index
-                frameWindow.Insert(0, newPage);
+                frameWindow.Add(newPage);
             }
             pageHistory.Add(newPage);
 
