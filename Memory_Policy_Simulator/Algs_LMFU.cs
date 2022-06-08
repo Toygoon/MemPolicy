@@ -6,16 +6,15 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Memory_Policy_Simulator {
-    class Algs_LFU : Algs {
-        bool isLFU;
-        public Algs_LFU(int getFrameSize, bool isLFU) : base(getFrameSize) {
-            this.algsName = "LFU";
-            this.isLFU = isLFU;
+    class Algs_LMFU : Algs {
+        bool reverseOrder = false;
+        public Algs_LMFU(int getFrameSize) : base(getFrameSize) {
+            this.algsName = "LMFU";
         }
 
         public int getVictimIdx() {
             List<Page> tmp = frameWindow.ToList();
-            if (isLFU) {
+            if (reverseOrder) {
                 tmp.Sort(delegate (Page x, Page y) {
                     if (x.refCount > y.refCount)
                         return 1;
@@ -35,6 +34,8 @@ namespace Memory_Policy_Simulator {
                     return x.pid.CompareTo(y.pid);
                 });
             }
+
+            reverseOrder = !reverseOrder;
 
             return frameWindow.IndexOf(tmp[0]);
         }
