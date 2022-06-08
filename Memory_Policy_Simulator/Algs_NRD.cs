@@ -31,7 +31,44 @@ namespace Memory_Policy_Simulator {
 
         public int replaceDual(char before, char after) {
             string tmp = str.Substring(0, currentStrIdx);
+
             var freqs = tmp.GroupBy(c => c).OrderBy(c => c.Count()).ToDictionary(c => c.Key, g => g.Count());
+            freqs.Remove(before);
+            freqs.Remove(after);
+
+            Page victim = frameWindow[0];
+            foreach (var v in frameWindow) {
+                if (freqs[victim.data] > freqs[v.data])
+                    victim = v;
+            }
+
+            freqs = tmp.GroupBy(c => c).ToDictionary(c => c.Key, g => g.Count());
+            freqs.Remove(before);
+            freqs.Remove(after);
+
+            foreach (var v in frameWindow) {
+                freqs.Remove(v.data);
+            }
+
+            if (freqs.Count() < 1)
+                return -1;
+
+            Page newPage = new Page {
+                pid = Page.createdAt,
+                data = freqs.Keys.Last()
+            };
+
+            newPage.status = Page.STATUS.MIGRATION;
+            newPage.before = victim.data;
+            frameWindow.Remove(victim);
+            frameWindow.Add(newPage);
+
+            return -1;
+            /*
+            string tmp = str.Substring(0, currentStrIdx);
+            var freqs = tmp.GroupBy(c => c).OrderBy(c => c.Count()).ToDictionary(c => c.Key, g => g.Count());
+            freqs.Remove(before);
+            freqs.Remove(after);
 
             Page victim = frameWindow[0];
             foreach(var v in frameWindow) {
@@ -43,6 +80,8 @@ namespace Memory_Policy_Simulator {
                 freqs.Remove(v.data);
             }
 
+            if (freqs.Count() < 1)
+                return -1;
 
             Page newPage = new Page {
                 pid = Page.createdAt,
@@ -56,6 +95,7 @@ namespace Memory_Policy_Simulator {
 
             return frameWindow.IndexOf(newPage);
 
+            */
             /*
             bool determined = false;
             char victim = '0', replace = '0';
