@@ -111,6 +111,10 @@ namespace Memory_Policy_Simulator {
                         window = new Algs_LFU(windowSize, false);
                         break;
 
+                    case "NRD":
+                        window = new Algs_NRD(windowSize);
+                        break;
+
                     default:
                         return;
                 }
@@ -157,6 +161,24 @@ namespace Memory_Policy_Simulator {
 
             // Highlight current issued page
             DrawGridHighlight(currentSeq, frameWindow.IndexOf(frameWindow.Find(x => x.data == page.data)) + 1, page.status);
+
+            if (core.algsName == "NRD" && core.aux != -1) {
+                int gridSize = 30;
+                int gridSpace = 5;
+                int gridBaseX = currentSeq * gridSize;
+                int gridBaseY = core.aux * gridSize;
+
+                SolidBrush highlighter = new SolidBrush(Color.LimeGreen);
+                
+                highlighter.Color = Color.Purple;
+
+                g.FillRectangle(highlighter, new Rectangle(
+                    gridBaseX + (currentSeq * gridSpace),
+                    gridBaseY,
+                    gridSize,
+                    gridSize
+                    ));
+            }
 
             // Draw existing texts in the grid
             for (int i = 1; i <= frameWindow.Count; i++)

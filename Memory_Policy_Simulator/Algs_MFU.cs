@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 namespace Memory_Policy_Simulator {
     class Algs_MFU : Algs {
         public Algs_MFU(int getFrameSize) : base(getFrameSize) {
+            this.algsName = "MFU";
         }
 
         public int getVictimIdx() {

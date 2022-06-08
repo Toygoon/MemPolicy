@@ -6,12 +6,15 @@ using System.Threading.Tasks;
 
 namespace Memory_Policy_Simulator {
     abstract class Algs {
+        public string algsName;
         public int frameSize;
         public List<Page> pageHistory;
         public List<Page> frameWindow;
 
         public int hit;
         public int fault;
+
+        public int aux;
 
         public Algs(int getFrameSize) {
             frameSize = getFrameSize;

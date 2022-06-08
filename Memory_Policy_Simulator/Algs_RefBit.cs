@@ -3,9 +3,10 @@ using System.Linq;
 
 namespace Memory_Policy_Simulator {
     class Algs_RefBit : Algs {
-        Dictionary<char, bool> refBit;
+        private Dictionary<char, bool> refBit;
 
         public Algs_RefBit(int getFrameSize) : base(getFrameSize) {
+            this.algsName = "REFBIT";
             this.refBit = new Dictionary<char, bool>();
         }
 

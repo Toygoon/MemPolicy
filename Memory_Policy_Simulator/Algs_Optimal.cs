@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 
 namespace Memory_Policy_Simulator {
     class Algs_Optimal : Algs {
-        int currentStrIdx;
-        string str;
+        private int currentStrIdx;
+        private string str;
 
         public Algs_Optimal(int getFrameSize, string str) : base(getFrameSize) {
+            this.algsName = "OPTIMAL";
             this.currentStrIdx = 0;
             this.str = str;
         }

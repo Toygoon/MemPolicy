@@ -9,6 +9,7 @@ namespace Memory_Policy_Simulator {
     class Algs_LFU : Algs {
         bool isLFU;
         public Algs_LFU(int getFrameSize, bool isLFU) : base(getFrameSize) {
+            this.algsName = "LFU";
             this.isLFU = isLFU;
         }
 
@@ -24,6 +25,7 @@ namespace Memory_Policy_Simulator {
                     return x.pid.CompareTo(y.pid);
                 });
             } else {
+                this.algsName = "MFU";
                 tmp.Sort(delegate (Page x, Page y) {
                     if (x.refCount < y.refCount)
                         return 1;

@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 
 namespace Memory_Policy_Simulator {
     class Algs_LRU : Algs {
-        int currentStrIdx;
-        string str;
+        private int currentStrIdx;
+        private string str;
 
         public Algs_LRU(int getFrameSize, string str) : base(getFrameSize) {
+            this.algsName = "LRU";
             this.currentStrIdx = 0;
             this.str = str;
         }

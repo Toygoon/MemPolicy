@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="Algs.cs" />
     <Compile Include="Algs_FIFO.cs" />
+    <Compile Include="Algs_NRD.cs" />
     <Compile Include="Algs_LFU.cs" />
     <Compile Include="Algs_MFU.cs" />
     <Compile Include="Algs_LRU.cs" />

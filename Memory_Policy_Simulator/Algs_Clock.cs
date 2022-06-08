@@ -4,9 +4,10 @@ using System.Linq;
 
 namespace Memory_Policy_Simulator {
     class Algs_Clock : Algs {
-        Dictionary<char, bool> refBit;
+        private Dictionary<char, bool> refBit;
 
         public Algs_Clock(int getFrameSize) : base(getFrameSize) {
+            this.algsName = "CLOCK";
             this.refBit = new Dictionary<char, bool>();
         }
 

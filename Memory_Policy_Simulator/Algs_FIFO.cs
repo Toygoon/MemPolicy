@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 namespace Memory_Policy_Simulator {
     class Algs_FIFO : Algs {
         public Algs_FIFO(int getFrameSize) : base(getFrameSize) {
+            this.algsName = "FIFO";
         }
 
         public override Page Operate(char data) {
