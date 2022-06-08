@@ -32,9 +32,31 @@ namespace Memory_Policy_Simulator {
         public int replaceDual(char before, char after) {
             string tmp = str.Substring(0, currentStrIdx);
             var freqs = tmp.GroupBy(c => c).OrderBy(c => c.Count()).ToDictionary(c => c.Key, g => g.Count());
-            freqs.Remove(before);
-            freqs.Remove(after);
 
+            Page victim = frameWindow[0];
+            foreach(var v in frameWindow) {
+                if (freqs[victim.data] > freqs[v.data])
+                    victim = v;
+            }
+
+            foreach(var v in frameWindow) {
+                freqs.Remove(v.data);
+            }
+
+
+            Page newPage = new Page {
+                pid = Page.createdAt,
+                data = freqs.Keys.Last()
+            };
+
+            newPage.status = Page.STATUS.MIGRATION;
+            newPage.before = victim.data;
+            frameWindow.Remove(victim);
+            frameWindow.Add(newPage);
+
+            return frameWindow.IndexOf(newPage);
+
+            /*
             bool determined = false;
             char victim = '0', replace = '0';
 
@@ -46,31 +68,36 @@ namespace Memory_Policy_Simulator {
                 }
             }
 
-            Debug.Write("before : ");
-            foreach(var v in freqs.Keys) {
-                Debug.Write(v + "(" + freqs[v] + "), ");
-            }
+            if (determined == false)
+                return -1;
 
             freqs = tmp.GroupBy(c => c).ToDictionary(c => c.Key, g => g.Count());
 
+            determined = false;
             foreach (var v in freqs.Keys) {
                 if (!frameWindow.Any(x => x.data == v)) {
-                    victim = v;
+                    replace = v;
                     determined = true;
                     break;
                 }
             }
 
+            if (determined == false)
+                return -1;
 
-            Debug.Write("after : ");
-            foreach (var v in freqs.Keys) {
-                Debug.Write(v + "(" + freqs[v] + "), ");
-            }
+            Page newPage = new Page {
+                pid = Page.createdAt,
+                data = replace
+            };
 
-            if (determined)
-                Debug.WriteLine("determined : " + victim + ", times : " + freqs[victim]);
+            newPage.status = Page.STATUS.MIGRATION;
+            newPage.before = victim;
+            frameWindow.Remove(frameWindow.Find(x => x.data == victim));
+            frameWindow.Add(newPage);
 
-            return -1;
+            return frameWindow.IndexOf(newPage);
+
+            */
         }
 
         public override Page Operate(char data) {
@@ -86,15 +113,14 @@ namespace Memory_Policy_Simulator {
                 newPage.status = Page.STATUS.HIT;
                 // Increase the number of hits
                 hit++;
-                refTimes[newPage.data]++;
                 aux = -1;
+                refTimes[newPage.data]++;
             } else {
                 if (frameWindow.Count >= frameSize) {
                     newPage.status = Page.STATUS.MIGRATION;
                     int victimIdx = getNormalVictim();
                     newPage.before = frameWindow[victimIdx].data;
                     frameWindow.RemoveAt(victimIdx);
-
                     if (!refTimes.Any(x => x.Key == data))
                         refTimes[newPage.data] = 0;
 
