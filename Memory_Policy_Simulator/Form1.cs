@@ -112,7 +112,7 @@ namespace Memory_Policy_Simulator {
                         break;
 
                     case "NRD":
-                        window = new Algs_NRD(windowSize);
+                        window = new Algs_NRD(windowSize, data);
                         break;
 
                     default:

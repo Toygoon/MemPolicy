@@ -8,11 +8,15 @@ using System.Threading.Tasks;
 namespace Memory_Policy_Simulator {
     class Algs_NRD : Algs {
         private Dictionary<char, int> refTimes;
+        private int currentStrIdx;
+        private string str;
 
-        public Algs_NRD(int getFrameSize) : base(getFrameSize) {
+        public Algs_NRD(int getFrameSize, string str) : base(getFrameSize) {
             this.algsName = "NRD";
-            refTimes = new Dictionary<char, int>();
-            aux = -1;
+            this.refTimes = new Dictionary<char, int>();
+            this.aux = -1;
+            this.str = str;
+            this.currentStrIdx = 0;
         }
 
         public int getNormalVictim() {
@@ -26,28 +30,51 @@ namespace Memory_Policy_Simulator {
         }
 
         public int replaceDual(char before, char after) {
-            var asc = from pair in refTimes orderby pair.Value ascending select pair;
-            var desc = from pair in refTimes orderby pair.Value descending select pair;
+            string tmp = str.Substring(0, currentStrIdx);
+            var freqs = tmp.GroupBy(c => c).OrderBy(c => c.Count()).ToDictionary(c => c.Key, g => g.Count());
+            freqs.Remove(before);
+            freqs.Remove(after);
 
-            int victim = 0, target = 0;
+            bool determined = false;
+            char victim = '0', replace = '0';
 
-            foreach (KeyValuePair<char, int> item in asc)
-                if (frameWindow.Any(x => x.data == item.Key) && item.Key != before && item.Key != after) 
-                    victim = frameWindow.IndexOf(frameWindow.Find(x => x.data == item.Key));
+            foreach (var v in freqs.Keys) {
+                if (!frameWindow.Any(x => x.data == v)) {
+                    victim = v;
+                    determined = true;
+                    break;
+                }
+            }
 
-            Debug.WriteLine("after" + after + ", victim : " + victim);
+            Debug.Write("before : ");
+            foreach(var v in freqs.Keys) {
+                Debug.Write(v + "(" + freqs[v] + "), ");
+            }
 
-            foreach (KeyValuePair<char, int> item in desc)
-                if (!frameWindow.Any(x => x.data == item.Key) && item.Key != before && item.Key != after)
-                    target = frameWindow.IndexOf(frameWindow.Find(x => x.data == item.Key));
+            freqs = tmp.GroupBy(c => c).ToDictionary(c => c.Key, g => g.Count());
 
-            if (victim != target)
-                return target;
+            foreach (var v in freqs.Keys) {
+                if (!frameWindow.Any(x => x.data == v)) {
+                    victim = v;
+                    determined = true;
+                    break;
+                }
+            }
+
+
+            Debug.Write("after : ");
+            foreach (var v in freqs.Keys) {
+                Debug.Write(v + "(" + freqs[v] + "), ");
+            }
+
+            if (determined)
+                Debug.WriteLine("determined : " + victim + ", times : " + freqs[victim]);
 
             return -1;
         }
 
         public override Page Operate(char data) {
+            currentStrIdx++;
             // Create a new page
             Page newPage = new Page {
                 pid = Page.createdAt++,
