@@ -26,9 +26,9 @@ namespace Memory_Policy_Simulator {
         /// </summary>
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.btnOperate = new System.Windows.Forms.Button();
             this.tbWindowSize = new System.Windows.Forms.TextBox();
             this.tbQueryString = new System.Windows.Forms.TextBox();
@@ -51,7 +51,7 @@ namespace Memory_Policy_Simulator {
             // 
             this.btnOperate.Font = new System.Drawing.Font("Tahoma", 8.25F);
             this.btnOperate.Location = new System.Drawing.Point(555, 4);
-            this.btnOperate.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnOperate.Margin = new System.Windows.Forms.Padding(2);
             this.btnOperate.Name = "btnOperate";
             this.btnOperate.Size = new System.Drawing.Size(76, 35);
             this.btnOperate.TabIndex = 0;
@@ -64,7 +64,7 @@ namespace Memory_Policy_Simulator {
             this.tbWindowSize.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tbWindowSize.Font = new System.Drawing.Font("Tahoma", 8.25F);
             this.tbWindowSize.Location = new System.Drawing.Point(412, 16);
-            this.tbWindowSize.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tbWindowSize.Margin = new System.Windows.Forms.Padding(2);
             this.tbWindowSize.Name = "tbWindowSize";
             this.tbWindowSize.Size = new System.Drawing.Size(64, 21);
             this.tbWindowSize.TabIndex = 1;
@@ -77,7 +77,7 @@ namespace Memory_Policy_Simulator {
             this.tbQueryString.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tbQueryString.Font = new System.Drawing.Font("Tahoma", 8.25F);
             this.tbQueryString.Location = new System.Drawing.Point(94, 16);
-            this.tbQueryString.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tbQueryString.Margin = new System.Windows.Forms.Padding(2);
             this.tbQueryString.Name = "tbQueryString";
             this.tbQueryString.Size = new System.Drawing.Size(316, 21);
             this.tbQueryString.TabIndex = 2;
@@ -89,7 +89,7 @@ namespace Memory_Policy_Simulator {
             this.pImage.AutoScroll = true;
             this.pImage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pImage.Location = new System.Drawing.Point(6, 48);
-            this.pImage.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pImage.Margin = new System.Windows.Forms.Padding(2);
             this.pImage.Name = "pImage";
             this.pImage.Size = new System.Drawing.Size(470, 316);
             this.pImage.TabIndex = 4;
@@ -99,7 +99,7 @@ namespace Memory_Policy_Simulator {
             this.tbConsole.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tbConsole.Font = new System.Drawing.Font("Tahoma", 8.25F);
             this.tbConsole.Location = new System.Drawing.Point(479, 48);
-            this.tbConsole.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tbConsole.Margin = new System.Windows.Forms.Padding(2);
             this.tbConsole.Multiline = true;
             this.tbConsole.Name = "tbConsole";
             this.tbConsole.ReadOnly = true;
@@ -109,21 +109,21 @@ namespace Memory_Policy_Simulator {
             // 
             // chart1
             // 
-            chartArea1.AlignmentOrientation = ((System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations)((System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Vertical | System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal)));
-            chartArea1.Area3DStyle.LightStyle = System.Windows.Forms.DataVisualization.Charting.LightStyle.Realistic;
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
-            legend1.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Bottom;
-            legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
+            chartArea2.AlignmentOrientation = ((System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations)((System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Vertical | System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal)));
+            chartArea2.Area3DStyle.LightStyle = System.Windows.Forms.DataVisualization.Charting.LightStyle.Realistic;
+            chartArea2.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea2);
+            legend2.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Bottom;
+            legend2.Name = "Legend1";
+            this.chart1.Legends.Add(legend2);
             this.chart1.Location = new System.Drawing.Point(479, 153);
-            this.chart1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.chart1.Margin = new System.Windows.Forms.Padding(2);
             this.chart1.Name = "chart1";
             this.chart1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Light;
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chart1.Series.Add(series1);
+            series2.ChartArea = "ChartArea1";
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            this.chart1.Series.Add(series2);
             this.chart1.Size = new System.Drawing.Size(212, 195);
             this.chart1.TabIndex = 6;
             this.chart1.Text = "chart1";
@@ -133,7 +133,7 @@ namespace Memory_Policy_Simulator {
             // 
             this.btnRand.Font = new System.Drawing.Font("Tahoma", 8.25F);
             this.btnRand.Location = new System.Drawing.Point(479, 3);
-            this.btnRand.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnRand.Margin = new System.Windows.Forms.Padding(2);
             this.btnRand.Name = "btnRand";
             this.btnRand.Size = new System.Drawing.Size(73, 36);
             this.btnRand.TabIndex = 7;
@@ -145,7 +145,7 @@ namespace Memory_Policy_Simulator {
             // 
             this.btnSave.Font = new System.Drawing.Font("Tahoma", 8.25F);
             this.btnSave.Location = new System.Drawing.Point(635, 3);
-            this.btnSave.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnSave.Margin = new System.Windows.Forms.Padding(2);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(58, 36);
             this.btnSave.TabIndex = 7;
@@ -164,13 +164,14 @@ namespace Memory_Policy_Simulator {
             "Clock",
             "LFU",
             "MFU",
-            "NRD"});
+            "LMFU"});
             this.comboBox1.Location = new System.Drawing.Point(6, 17);
-            this.comboBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.comboBox1.Margin = new System.Windows.Forms.Padding(2);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(67, 20);
             this.comboBox1.TabIndex = 8;
             this.comboBox1.Text = "FIFO";
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -246,7 +247,7 @@ namespace Memory_Policy_Simulator {
             this.Controls.Add(this.tbWindowSize);
             this.Controls.Add(this.btnOperate);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Form1";

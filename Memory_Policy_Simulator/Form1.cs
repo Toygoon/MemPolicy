@@ -111,7 +111,7 @@ namespace Memory_Policy_Simulator {
                         window = new Algs_LFU(windowSize, false);
                         break;
 
-                    case "NRD":
+                    case "LMFU":
                         window = new Algs_LMFU(windowSize);
                         break;
 
@@ -205,6 +205,10 @@ namespace Memory_Policy_Simulator {
         }
 
         private void tbQueryString_TextChanged(object sender, EventArgs e) {
+
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e) {
 
         }
     }
