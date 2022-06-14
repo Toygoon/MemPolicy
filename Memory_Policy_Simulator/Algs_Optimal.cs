@@ -1,13 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Memory_Policy_Simulator {
+    /// <summary>
+    /// Optimal Algorithm Simulation
+    /// By Lim Jung Min (Dept. of Computer Engineering, Yeungnam University)
+    /// </summary>
     class Algs_Optimal : Algs {
+        // currentStrIdx : For the substring
         private int currentStrIdx;
+        // str : Reference string
         private string str;
 
         public Algs_Optimal(int getFrameSize, string str) : base(getFrameSize) {
@@ -16,17 +18,24 @@ namespace Memory_Policy_Simulator {
             this.str = str;
         }
 
+        /// <summary>
+        /// getVictimIdx : Calculate the victim
+        /// </summary>
+        /// <returns>The index of selected victim</returns>
         public int getVictimIdx() {
+            // Substring for entire reference string given
             string tmp = str.Substring(currentStrIdx);
             List<char> windowChars = new List<char>(), strChars = new List<char>();
 
+            // Make lists
             foreach (var v in frameWindow)
                 windowChars.Add(v.data);
 
             foreach (char c in tmp)
                 strChars.Add(c);
 
-            foreach(char c in strChars) {
+            // Remove the data which is not will be referenced for the future
+            foreach (char c in strChars) {
                 if (windowChars.Contains(c))
                     windowChars.Remove(c);
 
@@ -34,10 +43,12 @@ namespace Memory_Policy_Simulator {
                     return frameWindow.IndexOf(frameWindow.Find(x => x.data == windowChars[0]));
             }
 
+            // If there's no victim, make a result like the FIFO
             return 0;
         }
 
         public override Page Operate(char data) {
+            // Increase the current index of string
             currentStrIdx++;
 
             // Create a new page
@@ -53,7 +64,9 @@ namespace Memory_Policy_Simulator {
                 hit++;
             } else {
                 if (frameWindow.Count >= frameSize) {
+                    // The case; Existing page should be replaced
                     newPage.status = Page.STATUS.MIGRATION;
+                    // Get the victim index
                     int victimIdx = getVictimIdx();
                     newPage.before = frameWindow[victimIdx].data;
                     frameWindow.RemoveAt(victimIdx);

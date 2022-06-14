@@ -1,19 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Memory_Policy_Simulator {
+    /// <summary>
+    /// LMFU (Least Most Frequent Used) Algorithm Simulation
+    /// By Lim Jung Min (Dept. of Computer Engineering, Yeungnam University)
+    /// </summary>
     class Algs_LMFU : Algs {
+        // Reverse bit
         bool reverseOrder = false;
         public Algs_LMFU(int getFrameSize) : base(getFrameSize) {
             this.algsName = "LMFU";
         }
 
+        /// <summary>
+        /// Algorithm Operations
+        /// First, get the victim index using LFU algorithm
+        /// Second, if LFU algorithm is used before, use MFU algorithm now
+        /// Third, Repeat this
+        /// </summary>
+        /// <returns>The index of selected victim</returns>
         public int getVictimIdx() {
             List<Page> tmp = frameWindow.ToList();
+            // Sort
             if (reverseOrder) {
                 tmp.Sort(delegate (Page x, Page y) {
                     if (x.refCount > y.refCount)
@@ -35,11 +44,14 @@ namespace Memory_Policy_Simulator {
                 });
             }
 
+            // Change the order
             reverseOrder = !reverseOrder;
 
+            // First index is Least, or Most
             return frameWindow.IndexOf(tmp[0]);
         }
 
+        // Operation is identical with LFU, MFU
         public override Page Operate(char data) {
             // Create a new page
             Page newPage = new Page {

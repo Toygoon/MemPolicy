@@ -2,7 +2,12 @@
 using System.Linq;
 
 namespace Memory_Policy_Simulator {
+    /// <summary>
+    /// Reference Bit Algorithm Simulation
+    /// By Lim Jung Min (Dept. of Computer Engineering, Yeungnam University)
+    /// </summary>
     class Algs_RefBit : Algs {
+        // refBit : Each data indicates key, and reference bit saves the value for it
         private Dictionary<char, bool> refBit;
 
         public Algs_RefBit(int getFrameSize) : base(getFrameSize) {
@@ -10,7 +15,12 @@ namespace Memory_Policy_Simulator {
             this.refBit = new Dictionary<char, bool>();
         }
 
+        /// <summary>
+        /// getVictimIdx : Calculate the victim
+        /// </summary>
+        /// <returns>The index of selected victim</returns>
         public int getVictimIdx() {
+            // Find the page which has false reference bit
             foreach(char c in refBit.Keys)
                 if (refBit[c] == false && frameWindow.Any(x => x.data == c))
                     return frameWindow.IndexOf(frameWindow.Find(x => x.data == c));
@@ -30,10 +40,13 @@ namespace Memory_Policy_Simulator {
                 newPage.status = Page.STATUS.HIT;
                 // Increase the number of hits
                 hit++;
+                // Change reference bit for current data to true
                 refBit[newPage.data] = true;
             } else {
                 if (frameWindow.Count >= frameSize) {
+                    // The case; Existing page should be replaced
                     newPage.status = Page.STATUS.MIGRATION;
+                    // Get the victim
                     int victimIdx = getVictimIdx();
                     newPage.before = frameWindow[victimIdx].data;
                     frameWindow.RemoveAt(victimIdx);
